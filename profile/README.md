@@ -105,12 +105,18 @@ Native Android app for doctors on-the-go
 
 ## 🤝 For Investors & Partners
 
-We are building the infrastructure layer for Pakistan's healthcare ecosystem. Our platform addresses critical pain points in:
+We are building the infrastructure layer for Pakistan's healthcare ecosystem.
 
-- **Clinical Collaboration** - Enabling case discussions and peer consultations
-- **Healthcare Staffing** - Connecting hospitals with locum doctors
-- **Medical Networking** - Building verified professional networks
-- **Knowledge Sharing** - Facilitating continuous medical education
+### Current Strategic Focus
+- **Scaling Community**: Expanding our verified doctor network across major cities
+- **Locum Marketplace**: digitizing healthcare staffing for hospitals
+- **Enterprise Solutions**: Building B2B tools for clinics and hospitals
+
+### Investment & Partnerships
+We are actively engaging with strategic partners and investors who share our vision for digital healthcare transformation in Pakistan.
+
+- **Investment Inquiries**: [cto@rounds.systems](mailto:cto@rounds.systems)
+- **Partnerships**: [partners@rounds.systems](mailto:partners@rounds.systems)
 
 ---
 
