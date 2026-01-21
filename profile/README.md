@@ -87,7 +87,7 @@ Native Android app for doctors on-the-go
 | Repository | Description | Stack |
 |------------|-------------|-------|
 | **rounds-web** | Healthcare community web platform | Next.js 14, TypeScript, Supabase |
-| **rounds-mobile** | Native mobile app for doctors | React Native, Expo, TypeScript |
+| **rounds-mobile** | Native mobile app for medical professionals | React Native, Expo, TypeScript |
 
 ---
 
@@ -97,7 +97,7 @@ Native Android app for doctors on-the-go
 
 **Pakistan Healthcare Market**
 
-🏥 **230,000+** Registered Doctors | 📍 **220M+** Population | 📈 **$8B+** Healthcare Market
+🏥 **500,000+** Registered Medical Professionals | 📍 **250M+** Population | 📈 **$8B+** Healthcare Market
 
 </div>
 
