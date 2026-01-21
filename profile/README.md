@@ -12,7 +12,7 @@
 
 ---
 
-**Rounds Systems** is a healthcare technology startup revolutionizing how doctors connect, collaborate, and practice medicine in Pakistan.
+**Rounds Systems** is a healthcare technology startup revolutionizing how medical professionals connect, collaborate, and practice medicine in Pakistan.
 
 </div>
 
@@ -20,7 +20,7 @@
 
 ## 🎯 Our Mission
 
-To create a unified healthcare ecosystem that empowers every doctor in Pakistan with the tools they need to provide better patient care through seamless clinical collaboration and knowledge sharing.
+To create a unified healthcare ecosystem that empowers every medical professional in Pakistan with the tools they need to provide better patient care through seamless clinical collaboration and knowledge sharing.
 
 ---
 
@@ -31,9 +31,9 @@ To create a unified healthcare ecosystem that empowers every doctor in Pakistan 
 <td align="center" width="25%">
 
 ### 🩺
-**Doctor Community**
+**Medical Community**
 
-Verified physicians collaborating on clinical cases
+Verified professionals collaborating on clinical cases
 
 </td>
 <td align="center" width="25%">
@@ -123,6 +123,6 @@ We are building the infrastructure layer for Pakistan's healthcare ecosystem. Ou
 
 ---
 
-<sub>© 2024-2026 Rounds Systems. Building healthcare's future, one connection at a time.</sub>
+<sub>© 2025-2026 Rounds Systems. Building healthcare's future, one connection at a time.</sub>
 
 </div>
