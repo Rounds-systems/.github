@@ -1,33 +1,25 @@
 # Security Policy
 
-## Reporting Security Vulnerabilities
+## Responsible Disclosure
 
-At Rounds Systems, we take security seriously. If you discover a security vulnerability in any of our repositories, please report it responsibly.
+Security is a core priority at Rounds Systems. As a healthcare technology company handling sensitive data, we welcome collaboration with the security community to identify and remediate vulnerabilities.
 
-### 📧 Contact
+### Reporting Vulnerabilities
 
-**Email**: security@rounds.systems (or cto@rounds.systems)
+If you believe you have found a security vulnerability in our platform or infrastructure, please report it to our security team immediately.
 
-### ⏱️ Response Timeline
+**Contact**: [security@rounds.systems](mailto:security@rounds.systems)
 
-- **Initial Response**: Within 48 hours
-- **Status Update**: Within 7 days
-- **Resolution**: Based on severity assessment
+### Infrastructure Scope
+- Rounds Web Platform
+- Rounds Mobile Application (Android/iOS)
+- API Infrastructure
 
-### 🔒 Our Commitment
-
-- We will investigate all reports promptly
-- We will keep reporters informed of progress
-- We will credit researchers (if desired)
-- We follow responsible disclosure practices
-
-### ⚠️ Scope
-
-This policy applies to all repositories under the Rounds-systems organization:
-- rounds-web
-- rounds-mobile
-- Related infrastructure and APIs
+### Our Commitment
+*   We will acknowledge receipt of your report within 48 hours.
+*   We will provide a timeline for remediation.
+*   We request that you do not publicly disclose the issue until it has been resolved.
 
 ---
 
-Thank you for helping keep Rounds Systems secure!
+*This policy is intended for responsible security research. We do not participate in public bug bounty platforms at this time.*
