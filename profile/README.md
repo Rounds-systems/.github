@@ -8,7 +8,7 @@
 
 [![Website](https://img.shields.io/badge/🌐_Website-rounds.systems-10B981?style=for-the-badge)](https://rounds.systems)
 [![Status](https://img.shields.io/badge/Status-Active_Development-brightgreen?style=for-the-badge)](#)
-[![Founded](https://img.shields.io/badge/Founded-2024-blue?style=for-the-badge)](#)
+[![Founded](https://img.shields.io/badge/Founded-2025-blue?style=for-the-badge)](#)
 
 ---
 
