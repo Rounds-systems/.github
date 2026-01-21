@@ -108,8 +108,8 @@ Native Android app for doctors on-the-go
 We are building the infrastructure layer for Pakistan's healthcare ecosystem.
 
 ### Current Strategic Focus
-- **Scaling Community**: Expanding our verified doctor network across major cities
-- **Locum Marketplace**: digitizing healthcare staffing for hospitals
+- **Scaling Community**: Growing our premier online social community for all verified medical professionals
+- **Locum Marketplace**: Digitizing healthcare staffing for hospitals
 - **Enterprise Solutions**: Building B2B tools for clinics and hospitals
 
 ### Investment & Partnerships
