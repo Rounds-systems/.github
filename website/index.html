@@ -1,0 +1,893 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>ROUNDS</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Rounds is Pakistan's professional network for doctors. A verified identity, locums with guaranteed pay, a doctor-only community, new ways to earn, and a kit worth wearing.">
+<meta name="theme-color" content="#F4F7F5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#09110D" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="ROUNDS · Built for the ones who save us">
+<meta property="og:description" content="Pakistan has 343,000 registered doctors. Rounds is the first platform built for them.">
+<meta property="og:url" content="https://rounds.systems">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230E6B50'/%3E%3Cpath d='M23.5 11.2A9 9 0 1 0 25 16' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round'/%3E%3Ccircle cx='24.6' cy='10.6' r='1.9' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap&text=%D9%85%D8%B3%DB%8C%D8%AD%D8%A7%D8%A4%DA%BA%20%DA%A9%DB%92%20%D9%84%DB%8C%DB%92">
+<style>
+/* Layout: a clinical chart. Mono margin labels sit in a narrow left column, generous type fills the right. */
+:root {
+  --paper: #F4F7F5;
+  --surface: #FFFFFF;
+  --ink: #0B1A14;
+  --muted: #56665E;
+  --line: #D7E0DA;
+  --green: #0E6B50;        /* surgical green */
+  --on-green: #FFFFFF;
+  --green-soft: #E2EEE8;
+  --dot: #A9BCB2;
+  --danger: #B42318;
+
+  --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --body: "Geist", -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --urdu: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", serif;
+
+  --wrap: 1200px;
+  --gutter-l: max(20px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(20px, env(safe-area-inset-right, 0px));
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #09110D; --surface: #0F1A15; --ink: #E7EEEA; --muted: #92A39A; --line: #1D2B24;
+    --green: #5DBB95; --on-green: #05110B; --green-soft: #11241B; --dot: #22332B; --danger: #F7A399;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #09110D; --surface: #0F1A15; --ink: #E7EEEA; --muted: #92A39A; --line: #1D2B24;
+  --green: #5DBB95; --on-green: #05110B; --green-soft: #11241B; --dot: #22332B; --danger: #F7A399;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1.0625rem/1.6 var(--body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a { color: inherit; }
+::selection { background: var(--green); color: var(--on-green); }
+:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 6px; }
+
+.wrap {
+  max-width: calc(var(--wrap) + 40px);
+  margin: 0 auto;
+  padding-left: var(--gutter-l);
+  padding-right: var(--gutter-r);
+}
+
+/* Type */
+h1, h2, h3 { font-family: var(--display); font-weight: 600; margin: 0; text-wrap: balance; font-optical-sizing: auto; }
+h1 { font-size: clamp(3.1rem, 9.2vw, 8.4rem); line-height: .92; letter-spacing: -0.045em; }
+h2 { font-size: clamp(2.2rem, 5.4vw, 4.4rem); line-height: 1; letter-spacing: -0.035em; }
+h3 { font-size: clamp(1.6rem, 2.8vw, 2.25rem); line-height: 1.05; letter-spacing: -0.025em; }
+p { margin: 0; text-wrap: pretty; }
+.lede { font-size: clamp(1.15rem, 1.8vw, 1.45rem); line-height: 1.45; color: var(--muted); max-width: 34ch; }
+.lede strong { color: var(--ink); font-weight: 500; }
+.label {
+  font: 500 .75rem/1.3 var(--mono);
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.label .tick { color: var(--green); }
+.prose { max-width: 60ch; display: grid; gap: 1.1em; color: var(--muted); }
+.prose strong { color: var(--ink); font-weight: 500; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: .55em;
+  font: 500 1rem/1 var(--body);
+  padding: .95em 1.45em;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .2s ease, background-color .2s ease, border-color .2s ease;
+}
+.btn-primary { background: var(--green); color: var(--on-green); }
+.btn-primary:hover { transform: translateY(-1px); }
+.btn-ghost { color: var(--ink); border-color: var(--line); background: transparent; }
+.btn-ghost:hover { border-color: var(--ink); }
+.btn .arrow { transition: transform .2s ease; }
+.btn:hover .arrow { transform: translateX(3px); }
+
+/* Nav */
+.nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  backdrop-filter: saturate(160%) blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s ease;
+}
+.nav.scrolled { border-bottom-color: var(--line); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 68px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+.brand svg { width: 26px; height: 26px; flex: none; }
+.brand-word { font: 700 1.05rem/1 var(--display); letter-spacing: .18em; }
+.nav-links { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; }
+.nav-links a { text-decoration: none; font-size: .925rem; color: var(--muted); transition: color .2s ease; }
+.nav-links a:hover { color: var(--ink); }
+.nav .btn { padding: .7em 1.15em; font-size: .9rem; }
+@media (max-width: 860px) { .nav-links { display: none; } }
+
+/* Hero */
+.hero { padding-block: clamp(56px, 10vw, 128px) clamp(40px, 6vw, 72px); }
+.hero .label { margin-bottom: clamp(24px, 4vw, 40px); display: flex; align-items: center; gap: 10px; }
+.pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--green); position: relative; flex: none; }
+.pulse::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--green);
+  animation: ping 2.4s cubic-bezier(0, 0, .2, 1) infinite;
+}
+@keyframes ping { 75%, 100% { transform: scale(2.8); opacity: 0; } }
+.hero h1 .soft { color: var(--green); }
+.hero-foot {
+  margin-top: clamp(32px, 5vw, 56px);
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: end;
+}
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; }
+@media (max-width: 760px) { .hero-foot { grid-template-columns: 1fr; } }
+
+.stats {
+  margin-top: clamp(56px, 8vw, 96px);
+  border-top: 1px solid var(--line);
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.stat { padding: 24px 24px 0 0; display: grid; gap: 8px; }
+.stat + .stat { padding-left: 24px; border-left: 1px solid var(--line); }
+.stat b {
+  font: 600 clamp(2.4rem, 5.4vw, 4.2rem)/1 var(--display);
+  letter-spacing: -0.04em; font-variant-numeric: tabular-nums;
+}
+.stat:last-child b { color: var(--green); }
+.stat span { color: var(--muted); font-size: .95rem; }
+@media (max-width: 640px) {
+  .stats { grid-template-columns: 1fr; }
+  .stat, .stat + .stat { padding: 20px 0; border-left: 0; border-bottom: 1px solid var(--line); grid-template-columns: 1fr; }
+}
+
+/* Sections */
+.section { padding-block: clamp(80px, 12vw, 160px); border-top: 1px solid var(--line); }
+.chart { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px clamp(24px, 4vw, 56px); }
+.chart > .label { padding-top: .9em; }
+.chart-body { min-width: 0; display: grid; gap: clamp(28px, 4vw, 48px); align-content: start; }
+@media (max-width: 860px) { .chart { grid-template-columns: 1fr; gap: 20px; } .chart > .label { padding-top: 0; } }
+
+/* Diagnosis: clerking note */
+.clerk {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+}
+.clerk-head {
+  display: flex; flex-wrap: wrap; gap: 8px 28px;
+  padding: 18px 24px; border-bottom: 1px solid var(--line);
+  font: 400 .8rem/1.4 var(--mono); color: var(--muted);
+}
+.clerk-head b { color: var(--ink); font-weight: 500; }
+.clerk-body { padding: 8px 24px 4px; }
+.clerk ol { list-style: none; margin: 0; padding: 0; counter-reset: c; }
+.clerk li {
+  counter-increment: c;
+  display: grid; grid-template-columns: 2.2em minmax(0, 1fr) auto; gap: 12px; align-items: baseline;
+  padding: 16px 0; border-bottom: 1px dashed var(--line);
+  font-size: clamp(1.02rem, 1.5vw, 1.15rem);
+}
+.clerk li:last-child { border-bottom: 0; }
+.clerk li::before { content: counter(c); font: 400 .8rem/1 var(--mono); color: var(--muted); }
+.clerk li small { font: 400 .72rem/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.clerk-foot {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+}
+.clerk-foot div { padding: 18px 24px; display: grid; gap: 6px; }
+.clerk-foot div + div { border-left: 1px solid var(--line); }
+.clerk-foot p { font-size: 1.02rem; }
+.clerk-foot .imp { color: var(--green); font-weight: 500; }
+@media (max-width: 560px) {
+  .clerk li { grid-template-columns: 1.8em minmax(0, 1fr); }
+  .clerk li small { grid-column: 2; }
+  .clerk-foot { grid-template-columns: 1fr; }
+  .clerk-foot div + div { border-left: 0; border-top: 1px solid var(--line); }
+  .clerk-head, .clerk-body, .clerk-foot div { padding-left: 18px; padding-right: 18px; }
+}
+
+.verdict {
+  font: 600 clamp(2.4rem, 6.2vw, 5.4rem)/.98 var(--display);
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.verdict span { color: var(--green); }
+
+/* Etymology */
+.define {
+  border-left: 2px solid var(--green);
+  padding: 4px 0 4px 22px;
+  display: grid; gap: 6px; max-width: 52ch;
+}
+.define .word { font: 600 1.5rem/1.1 var(--display); letter-spacing: -0.02em; }
+.define .word i { font: 400 .95rem var(--mono); font-style: normal; color: var(--muted); letter-spacing: 0; margin-left: 8px; }
+.define p { color: var(--muted); }
+
+/* Treatment: pillars */
+.pillars { display: grid; }
+.pillar {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px clamp(32px, 6vw, 88px);
+  padding-block: clamp(40px, 6vw, 72px);
+  border-top: 1px solid var(--line);
+  align-items: center;
+}
+.pillar:first-child { border-top: 0; padding-top: 8px; }
+.pillar-text { display: grid; gap: 16px; align-content: start; min-width: 0; }
+.pillar-text p { color: var(--muted); max-width: 46ch; }
+.pillar-text .label { color: var(--green); }
+.pillar-mock { min-width: 0; display: flex; justify-content: center; }
+@media (max-width: 860px) { .pillar { grid-template-columns: 1fr; } .pillar-mock { justify-content: flex-start; } }
+
+.mock {
+  width: 100%; max-width: 420px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--ink) 4%, transparent), 0 24px 48px -28px color-mix(in srgb, var(--ink) 28%, transparent);
+  display: grid; gap: 16px;
+  font-size: .95rem;
+  transition: transform .4s cubic-bezier(.2, .8, .2, 1);
+}
+.pillar:hover .mock { transform: translateY(-4px); }
+@media (prefers-reduced-motion: reduce) { .pillar:hover .mock, .btn-primary:hover { transform: none; } .pulse::after { animation: none; } }
+.mock-tag { font: 400 .68rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  font: 500 .75rem/1 var(--mono); letter-spacing: .02em;
+  padding: 7px 10px; border-radius: 999px;
+  background: var(--green-soft); color: var(--green);
+  white-space: nowrap;
+}
+.chip svg { width: 12px; height: 12px; }
+.chip.plain { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+.muted { color: var(--muted); }
+.hr { height: 1px; background: var(--line); }
+
+/* identity mock */
+.avatar {
+  width: 52px; height: 52px; border-radius: 50%; flex: none;
+  display: grid; place-items: center;
+  background: var(--green); color: var(--on-green);
+  font: 600 1.05rem/1 var(--display); letter-spacing: .02em;
+}
+.who { display: flex; gap: 14px; align-items: center; }
+.who b { display: block; font: 600 1.15rem/1.2 var(--display); letter-spacing: -0.01em; }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.facts div { display: grid; gap: 4px; }
+.facts b { font: 600 1.2rem/1 var(--display); font-variant-numeric: tabular-nums; }
+.facts span { font-size: .78rem; color: var(--muted); }
+
+/* locum mock */
+.amount { font: 600 2rem/1 var(--display); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.row.wraps { flex-wrap: wrap; }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.step { display: grid; gap: 8px; }
+.step i { display: block; height: 4px; border-radius: 4px; background: var(--green); }
+.step span { font: 400 .72rem/1.3 var(--mono); color: var(--muted); }
+.step span b { display: block; color: var(--ink); font-weight: 500; }
+
+/* community mock */
+.post { display: grid; gap: 10px; }
+.post p { font-size: 1rem; line-height: 1.5; }
+.replies { display: flex; align-items: center; gap: 10px; }
+.faces { display: flex; }
+.faces span {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 2px solid var(--surface);
+  background: var(--green-soft); color: var(--green);
+  display: grid; place-items: center;
+  font: 600 .6rem/1 var(--mono);
+}
+.faces span + span { margin-left: -8px; }
+.reply {
+  background: var(--paper); border-radius: 14px; padding: 12px 14px;
+  display: grid; gap: 4px; font-size: .92rem;
+}
+.reply b { font-weight: 500; font-size: .82rem; }
+
+/* earn mock */
+.channels { display: flex; flex-wrap: wrap; gap: 8px; }
+.ledger { display: grid; gap: 10px; }
+.ledger .row span:last-child { font-family: var(--mono); font-size: .85rem; font-variant-numeric: tabular-nums; }
+
+/* kit mock */
+.patch {
+  border: 1.5px dashed color-mix(in srgb, var(--green) 55%, transparent);
+  border-radius: 14px;
+  padding: 18px 20px;
+  background: var(--green-soft);
+  display: grid; gap: 2px;
+}
+.patch b { font: 600 1.35rem/1.15 var(--display); color: var(--green); letter-spacing: -0.01em; }
+.patch span { font: 400 .8rem/1.3 var(--mono); color: var(--green); letter-spacing: .04em; }
+.swatches { display: flex; gap: 10px; align-items: center; }
+.sw { width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--line); flex: none; }
+.footnote { font-size: .88rem; color: var(--muted); max-width: 46ch; }
+.footnote b { color: var(--ink); font-weight: 500; }
+
+/* Re-entry band */
+.band { background: var(--green); color: var(--on-green); }
+.band .section { border-top: 0; }
+.band .label, .band .prose, .band .prose strong { color: var(--on-green); }
+.band .label { opacity: .75; }
+.band .prose { opacity: .9; }
+.band .btn { background: var(--on-green); color: var(--green); }
+.band-figs { display: flex; flex-wrap: wrap; gap: 20px 56px; }
+.band-figs div { display: grid; gap: 6px; }
+.band-figs b { font: 600 clamp(2.6rem, 6vw, 4.6rem)/1 var(--display); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.band-figs span { font-size: .95rem; opacity: .8; max-width: 22ch; }
+
+/* Prognosis figure */
+.fig {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px clamp(32px, 6vw, 80px); align-items: center;
+}
+.fig-canvas { position: relative; width: 100%; max-width: 520px; aspect-ratio: 1; justify-self: center; }
+.fig-canvas canvas { width: 100%; height: 100%; display: block; }
+figcaption { font: 400 .8rem/1.55 var(--mono); color: var(--muted); max-width: 44ch; }
+figcaption b { color: var(--ink); font-weight: 500; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 12px; }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.legend i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.next { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.next li {
+  display: flex; justify-content: space-between; gap: 16px; align-items: baseline;
+  padding: 14px 0; border-bottom: 1px solid var(--line);
+}
+.next ul { list-style: none; margin: 0; padding: 0; }
+.next li span:last-child { font: 400 .72rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.next li.now span:last-child { color: var(--green); }
+@media (max-width: 860px) { .fig { grid-template-columns: 1fr; } }
+
+/* Join */
+.join { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px clamp(32px, 6vw, 96px); align-items: start; }
+.join-copy { display: grid; gap: 24px; min-width: 0; }
+form {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 22px;
+  padding: clamp(22px, 3vw, 32px); display: grid; gap: 16px; min-width: 0;
+}
+.field { display: grid; gap: 8px; }
+.field label { font: 500 .78rem/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.field input, .field select {
+  font: 400 1rem/1.3 var(--body); color: var(--ink);
+  background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+  padding: 14px 14px; width: 100%; min-width: 0;
+  transition: border-color .2s ease, box-shadow .2s ease;
+  -webkit-appearance: none; appearance: none;
+}
+.field select {
+  background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position: calc(100% - 20px) 55%, calc(100% - 15px) 55%;
+  background-size: 5px 5px; background-repeat: no-repeat; padding-right: 40px;
+}
+.field input::placeholder { color: color-mix(in srgb, var(--muted) 70%, transparent); }
+.field input:focus, .field select:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 22%, transparent); }
+.field-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+@media (max-width: 520px) { .field-pair { grid-template-columns: 1fr; } }
+form .btn { justify-content: center; width: 100%; margin-top: 4px; }
+.form-note { font-size: .82rem; color: var(--muted); }
+.form-error { font-size: .88rem; color: var(--danger); }
+.done { display: grid; gap: 14px; justify-items: start; padding: 8px 0; }
+.done .check { width: 48px; height: 48px; border-radius: 50%; background: var(--green); color: var(--on-green); display: grid; place-items: center; }
+.done h3 { font-size: 1.75rem; }
+.done p { color: var(--muted); }
+@media (max-width: 860px) { .join { grid-template-columns: 1fr; } }
+
+/* Footer */
+footer { border-top: 1px solid var(--line); padding-block: 56px 40px; }
+.foot { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 40px 32px; }
+.foot-brand { display: grid; gap: 14px; align-content: start; }
+.foot-brand p { color: var(--muted); max-width: 32ch; }
+.urdu { font-family: var(--urdu); font-size: 1.35rem; line-height: 2.2; color: var(--green); direction: rtl; text-align: left; }
+.foot h4 { margin: 0 0 14px; font: 500 .75rem/1 var(--mono); letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.foot a { text-decoration: none; color: var(--ink); font-size: .95rem; }
+.foot a:hover { color: var(--green); }
+.foot .addr { font-size: .95rem; user-select: all; }
+.legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: .85rem; color: var(--muted); }
+@media (max-width: 860px) { .foot { grid-template-columns: repeat(2, minmax(0, 1fr)); } .foot-brand { grid-column: 1 / -1; } }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="Rounds, home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="var(--green)"/><path d="M23.5 11.2A9 9 0 1 0 25 16" fill="none" stroke="var(--on-green)" stroke-width="2.6" stroke-linecap="round"/><circle cx="24.6" cy="10.6" r="1.9" fill="var(--on-green)"/></svg>
+      <span class="brand-word">ROUNDS</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="#why">Why Rounds</a></li>
+        <li><a href="#platform">Platform</a></li>
+        <li><a href="#earn">Earn</a></li>
+        <li><a href="#kit">The Kit</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-primary" href="#join">Join the round</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="label"><span class="pulse" aria-hidden="true"></span>For doctors · By doctors · Pakistan</p>
+      <h1>Built for the ones <span class="soft">who save us.</span></h1>
+      <div class="hero-foot">
+        <p class="lede">Every platform in Pakistani healthcare was built to sell doctors to patients. <strong>Rounds is the first one built for doctors.</strong></p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#join">Join the round <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost" href="#diagnosis">Why we exist</a>
+        </div>
+      </div>
+      <div class="stats" role="list">
+        <div class="stat" role="listitem"><b class="num">343,000</b><span>doctors registered in Pakistan</span></div>
+        <div class="stat" role="listitem"><b class="num">0</b><span>platforms built for them, until now</span></div>
+        <div class="stat" role="listitem"><b class="num">1,200</b><span>already on the round</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Diagnosis -->
+  <section class="section" id="diagnosis">
+    <div class="wrap chart">
+      <p class="label"><span class="tick">●</span> Diagnosis</p>
+      <div class="chart-body">
+        <h2>For once, the doctor is the patient.</h2>
+        <p class="lede">We clerked Pakistan's doctors the way they clerk everyone else. The findings were not subtle.</p>
+
+        <article class="clerk" aria-label="Clerking note">
+          <div class="clerk-head">
+            <span>Patient: <b>The Pakistani doctor</b></span>
+            <span>Age: <b>23 to 70</b></span>
+            <span>Ward: <b>Every hospital in the country</b></span>
+          </div>
+          <div class="clerk-body">
+            <p class="label" style="padding-top:14px">Presenting complaints</p>
+            <ol>
+              <li><span>Locums found in WhatsApp groups and paid on a promise.</span><small>Chronic</small></li>
+              <li><span>A PMDC number that no one can verify online.</span><small>Since graduation</small></li>
+              <li><span>Income capped by the hours in a shift.</span><small>Progressive</small></li>
+              <li><span>Violence on duty. Silence after.</span><small>Recurrent</small></li>
+              <li><span>The best colleagues, leaving on the next flight out.</span><small>Worsening</small></li>
+              <li><span>Up to half of all women graduates lost to practice after marriage.</span><small>Untreated</small></li>
+              <li><span>Called heroes. Treated as staff.</span><small>Daily</small></li>
+            </ol>
+          </div>
+          <div class="clerk-foot">
+            <div><p class="label">Impression</p><p class="imp">Professional isolation. Severe.</p></div>
+            <div><p class="label">Plan</p><p>A platform that works for the doctor. See below.</p></div>
+          </div>
+        </article>
+
+        <div class="prose">
+          <p>Other health apps list you, rank you, and sell your hour to patients. They are useful to everyone except the person holding the stethoscope.</p>
+        </div>
+        <p class="verdict">Rounds has no patients. <span>Only doctors.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Rounds -->
+  <section class="section" id="why">
+    <div class="wrap chart">
+      <p class="label"><span class="tick">●</span> Why the name</p>
+      <div class="chart-body">
+        <h2>Medicine happens on the walk.</h2>
+        <div class="define">
+          <p class="word">rounds <i>/raʊndz/ noun</i></p>
+          <p>The daily walk of doctors from bed to bed through a ward, to review every patient, decide together, and teach.</p>
+        </div>
+        <div class="prose">
+          <p>Every morning, in every hospital in Pakistan, doctors walk the ward together. They stop at each bed. They argue over a chest film, catch what one pair of eyes missed, and teach the house officer standing at the back.</p>
+          <p><strong>It is the oldest network in medicine.</strong> We named ourselves after it, and then took it off the ward. Same colleagues. Same standards. No visiting hours.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Treatment -->
+  <section class="section" id="platform">
+    <div class="wrap chart">
+      <p class="label"><span class="tick">●</span> Treatment</p>
+      <div class="chart-body">
+        <h2>From house job to consultant. One place.</h2>
+
+        <div class="pillars">
+
+          <div class="pillar">
+            <div class="pillar-text">
+              <p class="label">Identity</p>
+              <h3>Your name, verified.</h3>
+              <p>A profile with your PMDC registration checked and badged. Degrees, specialty, hospitals, publications. The professional identity your training earned, and one nobody can fake.</p>
+            </div>
+            <div class="pillar-mock">
+              <div class="mock" aria-label="Example profile">
+                <div class="row"><span class="mock-tag">Profile · Example</span><span class="chip"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.2l2.2 2.2 4.8-4.9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>PMDC verified</span></div>
+                <div class="who">
+                  <span class="avatar" aria-hidden="true">AM</span>
+                  <div><b>Dr. Ayesha Malik</b><span class="muted">MBBS, FCPS (Medicine) · Consultant Physician</span></div>
+                </div>
+                <div class="hr"></div>
+                <div class="facts">
+                  <div><b class="num">11</b><span>years in practice</span></div>
+                  <div><b class="num">64</b><span>shifts completed</span></div>
+                  <div><b class="num">4.9</b><span>peer rating</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pillar">
+            <div class="pillar-text">
+              <p class="label">Locums &amp; jobs</p>
+              <h3>Every shift paid. Every time.</h3>
+              <p>Find locums and jobs from verified hospitals. The fee goes into escrow before your shift starts and is released the moment it ends. No chasing. No “next week.” No favours.</p>
+            </div>
+            <div class="pillar-mock">
+              <div class="mock" aria-label="Example locum shift">
+                <div class="row"><span class="mock-tag">Locum · Example</span><span class="chip">Escrow secured</span></div>
+                <div class="row wraps" style="align-items:flex-end">
+                  <div><b style="font-weight:500">Night shift · Emergency</b><br><span class="muted">Lahore · 20:00 to 08:00</span></div>
+                  <span class="amount">Rs 16,000</span>
+                </div>
+                <div class="steps">
+                  <div class="step"><i></i><span><b>Funded</b>Before shift</span></div>
+                  <div class="step"><i></i><span><b>Worked</b>12 hours</span></div>
+                  <div class="step"><i></i><span><b>Paid</b>08:04</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pillar">
+            <div class="pillar-text">
+              <p class="label">Community</p>
+              <h3>A room with only doctors in it.</h3>
+              <p>Case discussions, specialty forums, private messages, voice and video calls. Post a difficult ECG at 3 a.m. and hear from a cardiologist before handover.</p>
+            </div>
+            <div class="pillar-mock">
+              <div class="mock" aria-label="Example case discussion">
+                <div class="row"><span class="mock-tag">Cardiology · Case</span><span class="muted" style="font-size:.8rem">03:12</span></div>
+                <div class="post">
+                  <p>58M, chest pain now resolved. Biphasic T waves in V2 and V3, troponin borderline. Discharge with follow-up, or cath?</p>
+                </div>
+                <div class="reply"><b>Consultant Cardiologist · Karachi</b><span>Looks like Wellens. Don't stress test him. Cath, and soon.</span></div>
+                <div class="replies">
+                  <div class="faces" aria-hidden="true"><span>SR</span><span>HK</span><span>ZA</span></div>
+                  <span class="muted" style="font-size:.85rem">14 replies · 3 consultants</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pillar" id="earn">
+            <div class="pillar-text">
+              <p class="label">Earn</p>
+              <h3>Your degree pays beyond the ward.</h3>
+              <p>More than fifteen ways to earn outside your shifts. Telemedicine, medical writing, tutoring, paid research surveys, consultations for families abroad, virtual scribing. From your phone, on your hours.</p>
+            </div>
+            <div class="pillar-mock">
+              <div class="mock" aria-label="Example earning channels">
+                <div class="row"><span class="mock-tag">This month · Example</span><span class="chip">6 channels</span></div>
+                <div class="ledger">
+                  <div class="row"><span>Telemedicine</span><span>22 consults</span></div>
+                  <div class="row"><span>Medical writing</span><span>2 articles</span></div>
+                  <div class="row"><span>FCPS tutoring</span><span>9 hours</span></div>
+                  <div class="row"><span>Virtual scribing</span><span>14 hours</span></div>
+                </div>
+                <div class="hr"></div>
+                <div class="channels">
+                  <span class="chip plain">Research surveys</span>
+                  <span class="chip plain">Cross-border consults</span>
+                  <span class="chip plain">+ 9 more</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pillar" id="kit">
+            <div class="pillar-text">
+              <p class="label">The Kit</p>
+              <h3>Wear what you earned.</h3>
+              <p>Scrubs cut for a twelve-hour shift. Lab coats embroidered with your name. Authentic stethoscopes and name badges. And the Rounds Doctor Kit, packed the way something this important should be.</p>
+              <p class="footnote"><b>Why green.</b> Surgeons spend hours looking at red. Green, its opposite, rests the eye. We made it our colour.</p>
+            </div>
+            <div class="pillar-mock">
+              <div class="mock" aria-label="Example embroidered coat">
+                <div class="row"><span class="mock-tag">Lab coat · Chest embroidery</span><span class="chip">Made to order</span></div>
+                <div class="patch">
+                  <b>Dr. Ayesha Malik</b>
+                  <span>CONSULTANT PHYSICIAN · FCPS</span>
+                </div>
+                <div class="row">
+                  <span class="muted" style="font-size:.85rem">Scrubs in</span>
+                  <div class="swatches" aria-label="Colours: surgical green, ceil blue, navy, wine">
+                    <span class="sw" style="background:#1F5E4B"></span>
+                    <span class="sw" style="background:#8FB3CF"></span>
+                    <span class="sw" style="background:#1C2A44"></span>
+                    <span class="sw" style="background:#5B1F2B"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Re-entry -->
+  <div class="band">
+    <section class="section" aria-labelledby="return-h">
+      <div class="wrap chart">
+        <p class="label">● Return to practice</p>
+        <div class="chart-body">
+          <h2 id="return-h">They never stopped being doctors.</h2>
+          <div class="band-figs">
+            <div><b class="num">7 in 10</b><span>of Pakistan's medical graduates are women</span></div>
+            <div><b class="num">Up to 50%</b><span>stop practising after marriage</span></div>
+          </div>
+          <div class="prose">
+            <p>The training stays. The country loses it. Rounds brings paid clinical work home: telemedicine, scribing, writing and teaching, on hours you choose. <strong>Your registration is still valid. So is your skill.</strong></p>
+          </div>
+          <div><a class="btn" href="#join">Come back on your terms <span class="arrow" aria-hidden="true">→</span></a></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Prognosis -->
+  <section class="section" id="prognosis">
+    <div class="wrap chart">
+      <p class="label"><span class="tick">●</span> Prognosis</p>
+      <div class="chart-body">
+        <h2>The round is just starting.</h2>
+        <div class="fig">
+          <div class="prose">
+            <p>In the United States, four in five physicians share one professional network. Pakistan's doctors have WhatsApp groups.</p>
+            <p><strong>We are building the network this country should have had decades ago.</strong> It starts with the 1,200 doctors already working shifts through us, and grows one verified colleague at a time.</p>
+            <div class="next">
+              <ul>
+                <li class="now"><span>Doctors and medical students</span><span>Now</span></li>
+                <li><span>Nurses</span><span>Next</span></li>
+                <li><span>Pharmacists</span><span>Next</span></li>
+                <li><span>Medical lab technologists</span><span>Next</span></li>
+                <li><span>Every healthcare professional in Pakistan</span><span>Then</span></li>
+              </ul>
+            </div>
+          </div>
+          <figure style="margin:0; display:grid; gap:16px; justify-items:center">
+            <div class="fig-canvas"><canvas id="round" role="img" aria-label="A spiral of 3,430 dots, one for every 100 registered doctors in Pakistan. Twelve dots at the centre are lit, showing the 1,200 doctors already on Rounds."></canvas></div>
+            <figcaption>
+              <b>Fig. 1</b> Pakistan's 343,000 registered doctors. Each dot is 100 of them. The lit centre is already on Rounds (n = 1,200).
+              <span class="legend"><span><i style="background:var(--green)"></i>On Rounds</span><span><i style="background:var(--dot)"></i>Still to join</span></span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Join -->
+  <section class="section" id="join">
+    <div class="wrap join">
+      <div class="join-copy">
+        <p class="label"><span class="tick">●</span> Membership</p>
+        <h2>Pakistan's doctors, finally in one room.</h2>
+        <p class="lede">Rounds is open to PMDC-registered doctors and medical students. Every member is verified before they get in. That is the point.</p>
+      </div>
+      <form id="join-form" novalidate>
+        <div id="form-fields" style="display:grid; gap:16px">
+          <div class="field">
+            <label for="f-name">Full name</label>
+            <input id="f-name" name="name" autocomplete="name" placeholder="Dr. Ayesha Malik" required>
+          </div>
+          <div class="field-pair">
+            <div class="field">
+              <label for="f-pmdc">PMDC reg. no.</label>
+              <input id="f-pmdc" name="pmdc" placeholder="e.g. 12345-P" required>
+            </div>
+            <div class="field">
+              <label for="f-city">City</label>
+              <input id="f-city" name="city" autocomplete="address-level2" placeholder="Lahore" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-spec">Where you are in medicine</label>
+            <select id="f-spec" name="specialty" required>
+              <option value="">Choose one</option>
+              <option>Medical student</option>
+              <option>House officer</option>
+              <option>Medical officer</option>
+              <option>Postgraduate trainee</option>
+              <option>Consultant</option>
+              <option>Not currently practising</option>
+            </select>
+          </div>
+          <p class="form-error" id="form-error" hidden>Please fill in every field so we can verify your registration.</p>
+          <button class="btn btn-primary" type="submit">Request my invite <span class="arrow" aria-hidden="true">→</span></button>
+          <p class="form-note">We use your PMDC number only to verify you. We never share it.</p>
+        </div>
+        <div class="done" id="form-done" hidden aria-live="polite">
+          <span class="check" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 12 12"><path d="M2.5 6.2l2.2 2.2 4.8-4.9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <h3 id="done-title">You're on the list.</h3>
+          <p>We'll verify your PMDC registration and send your invite. Welcome to the round.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="foot-brand">
+        <a class="brand" href="#top" aria-label="Rounds, back to top">
+          <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="var(--green)"/><path d="M23.5 11.2A9 9 0 1 0 25 16" fill="none" stroke="var(--on-green)" stroke-width="2.6" stroke-linecap="round"/><circle cx="24.6" cy="10.6" r="1.9" fill="var(--on-green)"/></svg>
+          <span class="brand-word">ROUNDS</span>
+        </a>
+        <p>Built for the ones who save us.</p>
+        <p class="urdu" lang="ur">مسیحاؤں کے لیے</p>
+      </div>
+      <div>
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="#platform">Verified profiles</a></li>
+          <li><a href="#platform">Locums &amp; jobs</a></li>
+          <li><a href="#platform">Community</a></li>
+          <li><a href="#earn">Earn</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Rounds</h4>
+        <ul>
+          <li><a href="#why">Why the name</a></li>
+          <li><a href="#kit">The Kit</a></li>
+          <li><a href="#prognosis">Where we're going</a></li>
+          <li><a href="#join">Join the round</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li class="addr">partners@rounds.systems</li>
+          <li class="addr">security@rounds.systems</li>
+          <li class="addr">rounds.systems</li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© <span id="yr">2026</span> Rounds Systems</span>
+      <span>Made in Pakistan, for the people who keep it alive.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Nav hairline once the page scrolls
+  var nav = document.getElementById('nav');
+  function onScroll() { nav.classList.toggle('scrolled', window.scrollY > 8); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Membership form (template: no backend, so submission stays on the page)
+  var form = document.getElementById('join-form');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var ok = Array.prototype.every.call(form.querySelectorAll('[required]'), function (el) { return el.value.trim() !== ''; });
+    document.getElementById('form-error').hidden = ok;
+    if (!ok) return;
+    var name = document.getElementById('f-name').value.trim().replace(/^dr\.?\s+/i, '');
+    var first = name.split(/\s+/)[0];
+    document.getElementById('done-title').textContent = "You're on the list, " + first + '.';
+    document.getElementById('form-fields').hidden = true;
+    document.getElementById('form-done').hidden = false;
+  });
+
+  // Fig. 1: one dot per 100 registered doctors, laid out on a sunflower spiral
+  var canvas = document.getElementById('round');
+  var ctx = canvas.getContext('2d');
+  var N = 3430, LIT = 12, GOLDEN = Math.PI * (3 - Math.sqrt(5));
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var colors = {}, size = 0, running = false, visible = true, start = performance.now();
+
+  function readColors() {
+    var cs = getComputedStyle(document.documentElement);
+    colors.dot = cs.getPropertyValue('--dot').trim();
+    colors.green = cs.getPropertyValue('--green').trim();
+  }
+  function resize() {
+    var r = canvas.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    size = r.width;
+    canvas.width = Math.round(r.width * dpr);
+    canvas.height = Math.round(r.height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function draw(t) {
+    var c = size / 2, maxR = size / 2 - 6;
+    var k = maxR / Math.sqrt(N);
+    var dotR = Math.max(1, k * 0.36);
+    var spin = reduce.matches ? 0 : t * 0.000025;
+    var wave = reduce.matches ? -1 : ((t % 7000) / 7000) * (maxR + 60);
+    ctx.clearRect(0, 0, size, size);
+    ctx.fillStyle = colors.dot;
+    for (var i = LIT; i < N; i++) {
+      var rr = k * Math.sqrt(i + 0.5), a = i * GOLDEN + spin;
+      var d = Math.abs(rr - wave);
+      ctx.globalAlpha = d < 40 ? 1 - (d / 40) * 0.3 : 0.7;
+      ctx.beginPath();
+      ctx.arc(c + rr * Math.cos(a), c + rr * Math.sin(a), dotR, 0, 6.2832);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = colors.green;
+    var beat = reduce.matches ? 1 : 1 + 0.25 * Math.max(0, Math.sin(t / 420));
+    for (var j = 0; j < LIT; j++) {
+      var r2 = k * Math.sqrt(j + 0.5), a2 = j * GOLDEN + spin;
+      ctx.beginPath();
+      ctx.arc(c + r2 * Math.cos(a2), c + r2 * Math.sin(a2), dotR * 1.5 * beat, 0, 6.2832);
+      ctx.fill();
+    }
+  }
+  function loop(now) {
+    if (!visible || reduce.matches) { running = false; return; }
+    draw(now - start);
+    requestAnimationFrame(loop);
+  }
+  function kick() {
+    draw(performance.now() - start);
+    if (!running && visible && !reduce.matches) { running = true; requestAnimationFrame(loop); }
+  }
+  readColors(); resize(); draw(0);
+  window.addEventListener('resize', function () { resize(); kick(); });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) { visible = entries[0].isIntersecting; kick(); }).observe(canvas);
+  }
+  var scheme = window.matchMedia('(prefers-color-scheme: dark)');
+  var refresh = function () { readColors(); kick(); };
+  if (scheme.addEventListener) scheme.addEventListener('change', refresh);
+  if (reduce.addEventListener) reduce.addEventListener('change', kick);
+  new MutationObserver(refresh).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  kick();
+})();
+</script>
+</body>
+</html>
